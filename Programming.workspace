@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Workspace Name="Programming" Database="" Version="10.0.0">
+  <VirtualDirectory Name="Workshop_1">
+    <VirtualDirectory Name="Tutorial">
+      <Project Name="Workshop_1_10" Path="Workshop_1_10/Workshop_1_10.project" Active="No"/>
+      <Project Name="Workshop_1_9" Path="Workshop_1_9/Workshop_1_9.project" Active="No"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="Homework">
+      <Project Name="Workshop_1_1" Path="Workshop_1_1/Workshop_1_1.project" Active="No"/>
+      <Project Name="Workshop_1_2" Path="Workshop_1_2/Workshop_1_2.project" Active="No"/>
+      <Project Name="Workshop_1_3" Path="Workshop_1_3/Workshop_1_3.project" Active="No"/>
+      <Project Name="Workshop_1_4" Path="Workshop_1_4/Workshop_1_4.project" Active="No"/>
+      <Project Name="Workshop_1_5" Path="Workshop_1_5/Workshop_1_5.project" Active="No"/>
+      <Project Name="Workshop_1_6" Path="Workshop_1_6/Workshop_1_6.project" Active="No"/>
+      <Project Name="Workshop_1_7" Path="Workshop_1_7/Workshop_1_7.project" Active="No"/>
+      <Project Name="Workshop_1_8" Path="Workshop_1_8/Workshop_1_8.project" Active="No"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="Final"/>
+    <VirtualDirectory Name="Tutorial_1">
+      <Project Name="Tutorial_1_1" Path="Tutorial_1_1/Tutorial_1_1.project" Active="No"/>
+      <Project Name="Tutorial_1_2" Path="Tutorial_1_2/Tutorial_1_2.project" Active="No"/>
+      <Project Name="Tutorial_1_3" Path="Tutorial_1_3/Tutorial_1_3.project" Active="No"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <VirtualDirectory Name="Workshop_2">
+    <VirtualDirectory Name="Homework">
+      <Project Name="Homework_2_1" Path="Homework_2_1/Homework_2_1.project" Active="No"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <VirtualDirectory Name="Assignment">
+    <Project Name="Board_Game" Path="Board_Game/Board_Game.project" Active="Yes"/>
+  </VirtualDirectory>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Debug" Selected="yes">
+      <Environment/>
+      <Project Name="Workshop_1_1" ConfigName="Debug"/>
+      <Project Name="Workshop_1_2" ConfigName="Debug"/>
+      <Project Name="Workshop_1_3" ConfigName="Debug"/>
+      <Project Name="Workshop_1_4" ConfigName="Debug"/>
+      <Project Name="Workshop_1_5" ConfigName="Debug"/>
+      <Project Name="Workshop_1_6" ConfigName="Debug"/>
+      <Project Name="Workshop_1_7" ConfigName="Debug"/>
+      <Project Name="Workshop_1_8" ConfigName="Debug"/>
+      <Project Name="Tutorial_1_1" ConfigName="Debug"/>
+      <Project Name="Tutorial_1_2" ConfigName="Debug"/>
+      <Project Name="Tutorial_1_1" ConfigName="Debug"/>
+      <Project Name="Tutorial_1_2" ConfigName="Debug"/>
+      <Project Name="Tutorial_1_3" ConfigName="Debug"/>
+      <Project Name="Homework_2_1" ConfigName="Debug"/>
+      <Project Name="Board_Game" ConfigName="Debug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Release" Selected="yes">
+      <Environment/>
+      <Project Name="Workshop_1_1" ConfigName="Release"/>
+      <Project Name="Workshop_1_2" ConfigName="Release"/>
+      <Project Name="Workshop_1_3" ConfigName="Release"/>
+      <Project Name="Workshop_1_4" ConfigName="Release"/>
+      <Project Name="Workshop_1_5" ConfigName="Release"/>
+      <Project Name="Workshop_1_6" ConfigName="Release"/>
+      <Project Name="Workshop_1_7" ConfigName="Release"/>
+      <Project Name="Workshop_1_8" ConfigName="Release"/>
+      <Project Name="Tutorial_1_1" ConfigName="Release"/>
+      <Project Name="Tutorial_1_2" ConfigName="Release"/>
+      <Project Name="Tutorial_1_1" ConfigName="Release"/>
+      <Project Name="Tutorial_1_2" ConfigName="Release"/>
+      <Project Name="Tutorial_1_3" ConfigName="Release"/>
+      <Project Name="Homework_2_1" ConfigName="Release"/>
+      <Project Name="Board_Game" ConfigName="Release"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>
