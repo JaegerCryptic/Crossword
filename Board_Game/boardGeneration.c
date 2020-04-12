@@ -14,6 +14,7 @@ static void gridSize(short inNoSymbols)
     
     printf("What size grid would you like?\n");
     scanf("%hi", &totalGrid);
+    printf("\n");
     
     grid = (char **)malloc((totalGrid + 1) * sizeof(char *));
     
@@ -31,11 +32,11 @@ static void gridSize(short inNoSymbols)
      static char row = '1';
      static char column = '1';
      
-      for(int i = 0; i < totalGrid; i ++)
+      for(int i = 1; i < totalGrid + 1; i ++)
     {
             grid[i][0] = column;
             column++;
-            printf("%c\n",grid[i][0]);
+            //printf("%c\n",grid[i][0]); Test data
     }
      
     for(int i = 0; i < totalGrid; i ++)
@@ -62,16 +63,30 @@ static void gridSize(short inNoSymbols)
     
     for (int i = 0; i < totalGrid + 1; i++) 
     {
+       
         for (int j = 1; j < totalGrid + 1; j++) 
         {
             static int count = 0;
-        
-            printf("%c ", grid[i][j]);
+            static int topDone = 0;
+            if(topDone == 0 || count > 0)
+            {
+                printf("    %c", grid[i][j]);
+            } 
+            else
+            {
+                printf("   %c", grid[i][j]);
+            }
             count++;
             if(count == totalGrid)
             {
+                topDone++;
                 printf("\n");
                 count = 0;
+                if(topDone >= 1)
+                {
+                    printf("%c",grid[0][topDone]);
+                }
+               
             }
         }
     }
