@@ -1,8 +1,63 @@
+void error()
+{
+    printf("Entered value was invalid. Please try again\n");
+}
+
+short toddlerProof(short userVal)
+{
+    while(1)
+    {
+        if(scanf("%hi", &userVal) == 0)
+        {
+            while(getchar() != '\n');   
+        }
+        else if(userVal >= 2)
+        {
+            return userVal;
+        }
+        error();
+    }
+}
+
+short dummyProof(short userVal)
+{
+    while(1)
+    {
+        if(scanf("%hi", &userVal) == 0)
+        {
+            while(getchar() != '\n');   
+        }
+        else if(userVal >= 2 && userVal <= 6)
+        {
+            return userVal;
+        }
+        error();
+    }
+}
+
+short babyProof(short userVal)
+{
+    while(1)
+    {
+        if(scanf("%hi", &userVal) == 0)
+        {
+            while(getchar() != '\n');   
+        }
+        else if(userVal == 1 || userVal == 2)
+        {
+            return userVal;
+        }
+        error();
+    }
+}
 
 static char randomSymbol(short inNoSymbols)
 {
-    int random = (rand() % inNoSymbols ) + 'A';
-    return (char)random;
+    int random = (rand() % inNoSymbols );
+    
+    char symbols[] = "!@#$%&";
+    
+    return symbols[random];
 }
 
 static void gridSize(short inNoSymbols)
@@ -12,8 +67,8 @@ static void gridSize(short inNoSymbols)
     
     char** grid;
     
-    printf("What size grid would you like?\n");
-    scanf("%hi", &totalGrid);
+    printf("What size grid would you like?. Must be greater than 1.\n");
+    totalGrid = toddlerProof(totalGrid);
     printf("\n");
     
     grid = (char **)malloc((totalGrid + 1) * sizeof(char *));
@@ -98,18 +153,19 @@ static void symbolSize()
     // determines no of symbols
     short noSymbols;
     
-    printf("How many symbols would you like? Warning. No more than 26 symbols. More than 6 symbols may result in a unbalanced game.\n");
-    scanf("%hi", &noSymbols);
+    printf("How many symbols would you like? Warning. The game supports up to 6 symbols.\n");
+    noSymbols = dummyProof(noSymbols);
     gridSize(noSymbols);
 }
 
 static int startGame()
 {
     // determines if new game or old
-    short gameSelect; 
+    short gameSelect;
     
-    printf("Would you like to start a new game(1) or load an old game(2). Please select 1 or 2\n");
-    scanf("%hi", &gameSelect);
+    printf("Would you like to start a new game(1), or load an old game(2). Please select 1 or 2\n");
+    
+    gameSelect = babyProof(gameSelect);
     
     if(gameSelect == 1)
     {
