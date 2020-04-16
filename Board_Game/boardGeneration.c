@@ -1,3 +1,7 @@
+char** grid;
+short noSymbols;
+short gridLength;
+
 void error()
 {
     printf("Entered value was invalid. Please try again\n");
@@ -51,75 +55,28 @@ short babyProof(short userVal)
     }
 }
 
-static char randomSymbol(short inNoSymbols)
+static void validateGrid()
 {
-    int random = (rand() % inNoSymbols );
+    
+}
+
+static char randomSymbol(short noSymbols)
+{
+    int random = (rand() % noSymbols );
     
     char symbols[] = "!@#$%&";
     
     return symbols[random];
 }
 
-static void gridSize(short inNoSymbols)
+void printGrid()
 {
-    //determines size of grid and generates said grid
-    short totalGrid;
-    
-    char** grid;
-    
-    printf("What size grid would you like?. Must be greater than 1.\n");
-    totalGrid = toddlerProof(totalGrid);
-    printf("\n");
-    
-    grid = (char **)malloc((totalGrid + 1) * sizeof(char *));
-    
-    //generate grid with malloc
-    
-    for(int i = 0; i < totalGrid + 1; i++)
-    {
-            grid[i] = (char *)malloc((totalGrid + 1) * sizeof(char *));
-    }
-    
-    
-    
-    // fill grid symbols
-     //static int count = 1; Testing data
-     static char row = '1';
-     static char column = '1';
-     
-      for(int i = 1; i < totalGrid + 1; i ++)
-    {
-            grid[i][0] = column;
-            column++;
-            //printf("%c\n",grid[i][0]); Test data
-    }
-     
-    for(int i = 0; i < totalGrid; i ++)
-    {
-        for(int j = 1; j < totalGrid + 1; j++)
-        {
-            grid[i][j] = row;
-            row++;
-        }
-    }
-     
-    for(int i = 1; i < totalGrid + 1; i++)
-    {
-        for(int j = 1; j < totalGrid + 1; j++)
-        {
-            grid[i][j] = randomSymbol(inNoSymbols);
-            //printf("%c\n",grid[i][j]);
-            //printf("%d", count); Testing data 
-            //count++; Testing data
-        }
-    }
-    
     //print grid
     
-    for (int i = 0; i < totalGrid + 1; i++) 
+    for (int i = 0; i < gridLength + 1; i++) 
     {
        
-        for (int j = 1; j < totalGrid + 1; j++) 
+        for (int j = 1; j < gridLength + 1; j++) 
         {
             static int count = 0;
             static int topDone = 0;
@@ -132,7 +89,7 @@ static void gridSize(short inNoSymbols)
                 printf("   %c", grid[i][j]);
             }
             count++;
-            if(count == totalGrid)
+            if(count == gridLength)
             {
                 topDone++;
                 printf("\n");
@@ -148,39 +105,76 @@ static void gridSize(short inNoSymbols)
     //printf("We got here"); Testing data
 }
 
+static void fillGrid()
+{
+     // fill grid symbols
+     //static int count = 1; Testing data
+     /*static char row = '1';
+     static char column = '1';*/
+     
+    /*  for(int i = 1; i < gridLength + 1; i ++)
+    {
+            grid[i][0] = column;
+            column++;
+            //printf("%c\n",grid[i][0]); Test data
+    }
+     
+    for(int i = 0; i < gridLength; i ++)
+    {
+        for(int j = 1; j < gridLength + 1; j++)
+        {
+            grid[i][j] = row;
+            row++;
+        }
+    }*/
+     
+    for(int i = 1; i < gridLength + 1; i++)
+    {
+        for(int j = 1; j < gridLength + 1; j++)
+        {
+            grid[i][j] = randomSymbol(noSymbols);
+            //printf("%c\n",grid[i][j]);
+            //printf("%d", count); Testing data 
+            //count++; Testing data
+        }
+    }
+    printGrid();
+}
+
+void genGrid()
+{
+     grid = (char **)malloc((gridLength + 1) * sizeof(char *));
+    
+    //generate grid with malloc
+    
+    for(int i = 0; i < gridLength + 1; i++)
+    {
+            grid[i] = (char *)malloc((gridLength + 1) * sizeof(char *));
+    }
+    fillGrid();
+}
+
+static void gridSize()
+{
+    //determines size of grid and generates said grid
+    
+    printf("What size grid would you like?. Must be greater than 1.\n");
+    gridLength = toddlerProof(gridLength);
+    printf("\n");
+    
+    genGrid();
+}
+
 static void symbolSize()
 {
     // determines no of symbols
-    short noSymbols;
-    
-    printf("How many symbols would you like? Warning. The game supports up to 6 symbols.\n");
+    printf("How many symbols would you like? The game supports up to 6 symbols and must have a minimum of 2.\n");
     noSymbols = dummyProof(noSymbols);
-    gridSize(noSymbols);
-}
-
-static int startGame()
-{
-    // determines if new game or old
-    short gameSelect;
-    
-    printf("Would you like to start a new game(1), or load an old game(2). Please select 1 or 2\n");
-    
-    gameSelect = babyProof(gameSelect);
-    
-    if(gameSelect == 1)
-    {
-            // Start new game generation 
-            symbolSize();
-    } 
-    else
-    {
-            // Start loading of old game I/O sequence
-    }
+    gridSize();
 }
 
 void boardGenMain()
 {
     // responsible for generating the board
-    startGame();
-    
+    symbolSize();
 }
