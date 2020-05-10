@@ -1,4 +1,3 @@
 -IC:\Users\jaege\OneDrive\Documents\GitHub\Crossword\Board_Game
--DNDEBUG
 -target
 i686-pc-windows-gnu

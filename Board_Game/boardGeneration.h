@@ -1,2 +1,2 @@
-int babyProof();
+int error();
 int boardGenMain();

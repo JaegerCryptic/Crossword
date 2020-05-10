@@ -4,6 +4,58 @@
 #include <ctype.h>
 #include <stdint.h>
 
+void colCascade(short *noSymbolsPtr, char **grid, int *scorePtr, int index)
+{
+	
+}
+
+void rowCascade(short *noSymbolsPtr, char **grid, int *scorePtr, int index)
+{
+	
+}
+
+bool swapAlgorithm(short *noSymbolsPtr, char **grid, int *scorePtr, short gridLength)
+{
+	for(int i = 1; i < gridLength; i++)
+		{
+			for(int j = 1; j < gridLength; i++)
+				{
+					if(grid[i][j] == grid[i + 1][j] && grid[i + 1][j] == grid[i + 2][j]) rowCascade(noSymbolsPtr, grid, scorePtr, i);
+					else if(grid[i][j] == grid[i][j + 1] && grid[i][j + 1] == grid[i][j + 2]) colCascade(noSymbolsPtr, grid, scorePtr, j);
+				}
+		}
+		return 1;
+} 
+
+void swapOperation(char **grid, int *parametersPtr, short gridLength)
+{
+	int toggle = 0;
+	int row1 = parametersPtr[0], row2 = parametersPtr[2], col1 = parametersPtr[1], col2 = parametersPtr[3];
+	char temp = grid[row1][col1];
+	
+	grid[row1][col1] = grid[row2][col2];
+	grid[row2][col2] = temp;
+		
+	for(int i = 1; i < gridLength - 1; i++)
+		{
+			for(int j = 1; j < gridLength - 1 ; j++)
+				{
+					if((grid[i][j] == grid[i + 1][j] && grid[i][j] == grid[i + 2][j]) 
+						|| (grid[i][j] == grid[i][j + 1] && grid[i][j] == grid[i][j + 2])) toggle = 1;
+				}
+		}
+		if(toggle == 0)
+			{
+				//revert logic
+				int row1 = parametersPtr[0], row2 = parametersPtr[2], col1 = parametersPtr[1], col2 = parametersPtr[3];
+				char temp = grid[row1][col1];
+	
+				grid[row1][col1] = grid[row2][col2];
+				grid[row2][col2] = temp;
+				printf("No swap possible\n");
+			}
+}
+
 bool rangeCheck(int *parametersPtr ,short gridLength)
 {
 	return parametersPtr[0] >= 1 && parametersPtr[0] <= gridLength && parametersPtr[1] >= 1 && parametersPtr[1] <= gridLength
@@ -11,26 +63,18 @@ bool rangeCheck(int *parametersPtr ,short gridLength)
 								 && parametersPtr[3] <= gridLength;
 }
 
-bool rowCheck(int *parametersPtr)
+bool adjacentCheck(int *parametersPtr)
 {
-	return (parametersPtr[0] == parametersPtr[2] && abs(parametersPtr[1] - parametersPtr[3]) == 1);
+	return (parametersPtr[0] == parametersPtr[2] && abs(parametersPtr[1] - parametersPtr[3]) == 1)
+			|| (parametersPtr[1] == parametersPtr[3] && abs(parametersPtr[0] - parametersPtr[2]) == 1);
 }
-
-bool colCheck(int *parametersPtr)
-{
-	return (parametersPtr[1] == parametersPtr[3] && abs(parametersPtr[0] - parametersPtr[2]) == 1);
-}
-
-//bool 
-
-
 
 void error()
 {
     printf("Entered value was invalid. Please try again\n");
 }
 
-short toddlerProof()
+short gridProof()
 {
 	short userVal;
     while(1)
@@ -47,7 +91,7 @@ short toddlerProof()
     }
 }
 
-short dummyProof()
+short symbolProof()
 {
 	short userVal;
     while(1)
@@ -57,22 +101,6 @@ short dummyProof()
             while(getchar() != '\n');   
         }
         else if(userVal >= 2 && userVal <= 13)
-        {
-            return userVal;
-        }
-        error();
-    }
-}
-
-short babyProof(short userVal)
-{
-    while(1)
-    {
-        if(scanf("%hi", &userVal) == 0)
-        {
-            while(getchar() != '\n');   
-        }
-        else if(userVal == 1 || userVal == 2)
         {
             return userVal;
         }
@@ -92,7 +120,6 @@ void printGrid(char **grid, short gridLength)
         }
 		printf("\n");
     }
-    //printf("We got here"); Testing data
 }
 
 bool checkRow(char **grid, int row, int column)
@@ -135,7 +162,7 @@ static short gridSize()
 {
     //determines size of grid and generates said grid
     printf("What size grid would you like?. Must be greater than 1.\n");
-    short gridLength = toddlerProof();
+    short gridLength = gridProof();
     printf("\n");
 	return gridLength;
 }
@@ -144,7 +171,7 @@ static short symbolSize()
 {
     // determines no of symbols
     printf("How many symbols would you like? The game supports up to 13 symbols and must have a minimum of 2.\n");
-    short noSymbols = dummyProof();
+    short noSymbols = symbolProof();
     return noSymbols;
    
 }
@@ -197,12 +224,10 @@ int boardGenMain()
 		else if(command[0] == 's' && command[1] == 'w')
 		{
 			// check range and input is valid
-			if(swapHandling(command, parameters, gridLength) && rangeCheck(parameters, gridLength))
+			if(swapHandling(command, parameters, gridLength) && rangeCheck(parameters, gridLength) && adjacentCheck(parameters))
 			{
-				printf("Checking Range..\n");
-				//determine if we're swapping row or column
-				if(rowCheck(parameters)) printf("Row\n");
-				if(colCheck(parameters)) printf("Column\n");
+				swapOperation(grid, parameters, gridLength);
+				
 			}else printf("Values for columns and rows are not adjacent.\n");
 		}
 		else if(command[0] == 'e') return 0;

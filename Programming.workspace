@@ -15,7 +15,7 @@
     <Project Name="Board_Game" Path="Board_Game/Board_Game.project" Active="Yes"/>
   </VirtualDirectory>
   <BuildMatrix>
-    <WorkspaceConfiguration Name="Debug" Selected="no">
+    <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>
       <Project Name="Workshop_1_1" ConfigName="Debug"/>
       <Project Name="Workshop_1_2" ConfigName="Debug"/>
@@ -34,7 +34,7 @@
       <Project Name="Board_Game" ConfigName="Debug"/>
       <Project Name="Crossword" ConfigName="Debug"/>
     </WorkspaceConfiguration>
-    <WorkspaceConfiguration Name="Release" Selected="yes">
+    <WorkspaceConfiguration Name="Release" Selected="no">
       <Environment/>
       <Project Name="Workshop_1_1" ConfigName="Release"/>
       <Project Name="Workshop_1_2" ConfigName="Release"/>
