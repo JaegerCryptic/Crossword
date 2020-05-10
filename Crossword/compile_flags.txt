@@ -1,0 +1,3 @@
+-IC:\Users\jaege\OneDrive\Documents\GitHub\Crossword\Crossword
+-target
+i686-pc-windows-gnu

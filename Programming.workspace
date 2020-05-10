@@ -4,7 +4,9 @@
     <VirtualDirectory Name="Tutorial"/>
     <VirtualDirectory Name="Homework"/>
     <VirtualDirectory Name="Final"/>
-    <VirtualDirectory Name="Tutorial_1"/>
+    <VirtualDirectory Name="Tutorial_1">
+      <Project Name="Crossword" Path="Crossword/Crossword.project" Active="No"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="Workshop_2">
     <VirtualDirectory Name="Homework"/>
@@ -30,6 +32,7 @@
       <Project Name="Tutorial_1_3" ConfigName="Debug"/>
       <Project Name="Homework_2_1" ConfigName="Debug"/>
       <Project Name="Board_Game" ConfigName="Debug"/>
+      <Project Name="Crossword" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release" Selected="yes">
       <Environment/>
@@ -48,6 +51,7 @@
       <Project Name="Tutorial_1_3" ConfigName="Release"/>
       <Project Name="Homework_2_1" ConfigName="Release"/>
       <Project Name="Board_Game" ConfigName="Release"/>
+      <Project Name="Crossword" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>
