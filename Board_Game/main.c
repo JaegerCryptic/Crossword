@@ -8,7 +8,7 @@ static void startGame()
     
     printf("Would you like to start a new game(1), or load an old game(2). Please select 1 or 2\n");
     
-    gameSelect = babyProof(gameSelect);
+    gameSelect = babyProof();
     
     if(gameSelect == 1)
     {

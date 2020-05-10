@@ -6,21 +6,21 @@
     <TabInfo>
       <wxString Value="C:\Users\jaege\OneDrive\Documents\GitHub\Crossword\Board_Game\main.c" Name="FileName"/>
       <int Value="0" Name="FirstVisibleLine"/>
-      <int Value="1" Name="CurrentLine"/>
+      <int Value="18" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
     <TabInfo>
       <wxString Value="C:\Users\jaege\OneDrive\Documents\GitHub\Crossword\Board_Game\boardGeneration.c" Name="FileName"/>
-      <int Value="105" Name="FirstVisibleLine"/>
-      <int Value="148" Name="CurrentLine"/>
+      <int Value="179" Name="FirstVisibleLine"/>
+      <int Value="209" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>
     <TabInfo>
       <wxString Value="C:\Users\jaege\OneDrive\Documents\GitHub\Crossword\Board_Game\boardGeneration.h" Name="FileName"/>
       <int Value="0" Name="FirstVisibleLine"/>
-      <int Value="2" Name="CurrentLine"/>
+      <int Value="1" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>

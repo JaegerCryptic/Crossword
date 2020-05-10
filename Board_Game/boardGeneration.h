@@ -1,3 +1,2 @@
-int temp;
-int babyProof(temp);
+int babyProof();
 int boardGenMain();

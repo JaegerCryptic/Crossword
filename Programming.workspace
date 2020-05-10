@@ -15,7 +15,7 @@
     <Project Name="Board_Game" Path="Board_Game/Board_Game.project" Active="Yes"/>
   </VirtualDirectory>
   <BuildMatrix>
-    <WorkspaceConfiguration Name="Debug" Selected="yes">
+    <WorkspaceConfiguration Name="Debug" Selected="no">
       <Environment/>
       <Project Name="Workshop_1_1" ConfigName="Debug"/>
       <Project Name="Workshop_1_2" ConfigName="Debug"/>

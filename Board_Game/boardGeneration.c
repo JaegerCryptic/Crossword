@@ -2,27 +2,37 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <stdint.h>
 
-bool rangeCheck(int **parametersPtr, short *gridLength)
+bool rangeCheck(int *parametersPtr ,short gridLength)
 {
-	return parametersPtr[0] >= 1 && parametersPtr[0] < gridLength && parametersPtr[1] >= 1 && parametersPtr[1] < gridLength
-							     && parametersPtr[2] < gridLength && parametersPtr[2] >= 1 && parametersPtr[3] >= 1
-								 && parametersPtr[3] < gridLength;
+	return parametersPtr[0] >= 1 && parametersPtr[0] <= gridLength && parametersPtr[1] >= 1 && parametersPtr[1] <= gridLength
+								 && parametersPtr[2] >= 1 && parametersPtr[2] <= gridLength && parametersPtr[3] >= 1
+								 && parametersPtr[3] <= gridLength;
 }
 
-bool adjacentCheck(int **parametersPtr)
+bool rowCheck(int *parametersPtr)
 {
-	return (parametersPtr[0] == parametersPtr[2] && abs(parametersPtr[1] - parametersPtr[3]) == 1) ||
-				(parametersPtr[1] == parametersPtr[3] && abs(parametersPtr[0] - parametersPtr[2]) == 1);
+	return (parametersPtr[0] == parametersPtr[2] && abs(parametersPtr[1] - parametersPtr[3]) == 1);
 }
+
+bool colCheck(int *parametersPtr)
+{
+	return (parametersPtr[1] == parametersPtr[3] && abs(parametersPtr[0] - parametersPtr[2]) == 1);
+}
+
+//bool 
+
+
 
 void error()
 {
     printf("Entered value was invalid. Please try again\n");
 }
 
-short toddlerProof(short userVal)
+short toddlerProof()
 {
+	short userVal;
     while(1)
     {
         if(scanf("%hi", &userVal) == 0)
@@ -37,8 +47,9 @@ short toddlerProof(short userVal)
     }
 }
 
-short dummyProof(short userVal)
+short dummyProof()
 {
+	short userVal;
     while(1)
     {
         if(scanf("%hi", &userVal) == 0)
@@ -124,7 +135,7 @@ static short gridSize()
 {
     //determines size of grid and generates said grid
     printf("What size grid would you like?. Must be greater than 1.\n");
-    short gridLength = toddlerProof(gridLength);
+    short gridLength = toddlerProof();
     printf("\n");
 	return gridLength;
 }
@@ -133,23 +144,23 @@ static short symbolSize()
 {
     // determines no of symbols
     printf("How many symbols would you like? The game supports up to 13 symbols and must have a minimum of 2.\n");
-    short noSymbols = dummyProof(noSymbols);
+    short noSymbols = dummyProof();
     return noSymbols;
    
 }
 
-static int swapHandling(char *commandPtr, int **parametersPtr)
+static int swapHandling(char *commandPtr, int *parametersPtr, short gridLength)
 {
-	static int j = 0;
+	int j = 0;
 	for(int i = 0; commandPtr[i] != '\0'; i++)
 	{
 		if(isdigit(commandPtr[i]) != 0)
 		{
 			parametersPtr[j] = commandPtr[i] - '0';
-			j ++;
+			j++;
 		}
 	}
-	if(parametersPtr[0] == NULL || parametersPtr[1] == NULL || parametersPtr[2] == NULL || parametersPtr[3] == NULL)
+	if(parametersPtr[0] == gridLength + 1 || parametersPtr[1] == gridLength + 1 || parametersPtr[2] == gridLength + 1 || parametersPtr[3] == gridLength + 1)
 	{
 		printf("You have not entered the columns and rows to be swapped correctly.\n");
 		return 0;
@@ -165,8 +176,8 @@ int boardGenMain()
     short noSymbols = symbolSize();
     short gridLength = gridSize();
     char **grid = genGrid(gridLength, symbols, noSymbols);
-	char command[7];
-	int *parameters[3] = { NULL };
+	char command[10];
+	int parameters[4] = {gridLength + 1};
 	printGrid(grid, gridLength);
 	
 	printf("\nCommands:\n" 
@@ -175,7 +186,7 @@ int boardGenMain()
 		   "Swap(sw row column x row column) eg. sw 12 22\n");
 	while(1)
 	{
-		if(fgets(command, 8, stdin) == 0)
+		if(fgets(command, 10, stdin) == 0)
 		{
 			while(getchar() != '\n');
 		}
@@ -186,19 +197,14 @@ int boardGenMain()
 		else if(command[0] == 's' && command[1] == 'w')
 		{
 			// check range and input is valid
-			if(swapHandling(command, parameters) == 1)
+			if(swapHandling(command, parameters, gridLength) && rangeCheck(parameters, gridLength))
 			{
-				if(rangeCheck(parameters, gridLength) && adjacentCheck(parameters))
-				{
-					
-				}
-				else printf("Values for columns and rows is out of range.");
-			}
+				printf("Checking Range..\n");
+				//determine if we're swapping row or column
+				if(rowCheck(parameters)) printf("Row\n");
+				if(colCheck(parameters)) printf("Column\n");
+			}else printf("Values for columns and rows are not adjacent.\n");
 		}
-		else if(command[0] == 'e')
-		{
-			return 0;
-		}
-		//error();
+		else if(command[0] == 'e') return 0;
 	}
 }

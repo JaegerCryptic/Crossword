@@ -1,3 +1,4 @@
 -IC:\Users\jaege\OneDrive\Documents\GitHub\Crossword\Crossword
+-DNDEBUG
 -target
 i686-pc-windows-gnu
