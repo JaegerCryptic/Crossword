@@ -4,30 +4,35 @@
 #include <ctype.h>
 #include <stdint.h>
 
-void colCascade(short *noSymbolsPtr, char **grid, int *scorePtr, int index)
+void cascade()
+{
+    
+}
+
+void colCascade(short noSymbolsPtr, char **grid, int scorePtr, int indexCol, int indexRow)
 {
 	
 }
 
-void rowCascade(short *noSymbolsPtr, char **grid, int *scorePtr, int index)
+void rowCascade(short noSymbolsPtr, char **grid, int scorePtr, int indexCol, int indexRow)
 {
-	
+    
 }
 
-bool swapAlgorithm(short *noSymbolsPtr, char **grid, int *scorePtr, short gridLength)
+int swapAlgorithm(short noSymbolsPtr, char **grid, int scorePtr, short gridLength)
 {
-	for(int i = 1; i < gridLength; i++)
+	for(int i = 1; i < gridLength - 1; i++)
 		{
-			for(int j = 1; j < gridLength; i++)
+			for(int j = 1; j < gridLength - 1; j++)
 				{
-					if(grid[i][j] == grid[i + 1][j] && grid[i + 1][j] == grid[i + 2][j]) rowCascade(noSymbolsPtr, grid, scorePtr, i);
-					else if(grid[i][j] == grid[i][j + 1] && grid[i][j + 1] == grid[i][j + 2]) colCascade(noSymbolsPtr, grid, scorePtr, j);
+					if(grid[i][j] == grid[i + 1][j] && grid[i][j] == grid[i + 2][j]) rowCascade(noSymbolsPtr, grid, scorePtr, j, i);
+					else if(grid[i][j] == grid[i][j + 1] && grid[i][j] == grid[i][j + 2]) colCascade(noSymbolsPtr, grid, scorePtr, j, i);
 				}
 		}
 		return 1;
 } 
 
-void swapOperation(char **grid, int *parametersPtr, short gridLength)
+int swapCheck(char **grid, int *parametersPtr, short gridLength)
 {
 	int toggle = 0;
 	int row1 = parametersPtr[0], row2 = parametersPtr[2], col1 = parametersPtr[1], col2 = parametersPtr[3];
@@ -35,13 +40,24 @@ void swapOperation(char **grid, int *parametersPtr, short gridLength)
 	
 	grid[row1][col1] = grid[row2][col2];
 	grid[row2][col2] = temp;
-		
-	for(int i = 1; i < gridLength - 1; i++)
+		//printf("%d",gridLength);
+	for(int i = 1; i <= gridLength; i++)
 		{
-			for(int j = 1; j < gridLength - 1 ; j++)
+			for(int j = 1; j <= gridLength; j++)
 				{
-					if((grid[i][j] == grid[i + 1][j] && grid[i][j] == grid[i + 2][j]) 
-						|| (grid[i][j] == grid[i][j + 1] && grid[i][j] == grid[i][j + 2])) toggle = 1;
+                    if(i + 2 <= gridLength && j + 2 <= gridLength)
+                    {
+                        if((grid[i][j] == grid[i][j + 1] && grid[i][j] == grid[i][j + 2])
+                            || (grid[i][j] == grid[i + 1][j] && grid[i][j] == grid[i + 2][j]));
+                    }
+                    else if(i + 2 > gridLength && j + 2 <= gridLength)
+                    {
+                        if(grid[i][j] == grid[i][j + 1] && grid[i][j] == grid[i][j + 2]) return 1;
+                    }
+                    else if(i + 2 <= gridLength && j + 2 > gridLength)
+                    {
+                         if(grid[i][j] == grid[i + 1][j] && grid[i][j] == grid[i + 2][j]) return 1;   
+                    }
 				}
 		}
 		if(toggle == 0)
@@ -54,9 +70,10 @@ void swapOperation(char **grid, int *parametersPtr, short gridLength)
 				grid[row2][col2] = temp;
 				printf("No swap possible\n");
 			}
+            return 0;
 }
 
-bool rangeCheck(int *parametersPtr ,short gridLength)
+bool rangeCheck(int *parametersPtr, short gridLength)
 {
 	return parametersPtr[0] >= 1 && parametersPtr[0] <= gridLength && parametersPtr[1] >= 1 && parametersPtr[1] <= gridLength
 								 && parametersPtr[2] >= 1 && parametersPtr[2] <= gridLength && parametersPtr[3] >= 1
@@ -200,6 +217,7 @@ int boardGenMain()
 {
     // responsible for generating the board
     char symbols[] = "!@#$%^&*()-+";
+    int score = 0;
     short noSymbols = symbolSize();
     short gridLength = gridSize();
     char **grid = genGrid(gridLength, symbols, noSymbols);
@@ -226,10 +244,13 @@ int boardGenMain()
 			// check range and input is valid
 			if(swapHandling(command, parameters, gridLength) && rangeCheck(parameters, gridLength) && adjacentCheck(parameters))
 			{
-				swapOperation(grid, parameters, gridLength);
-				
-			}else printf("Values for columns and rows are not adjacent.\n");
-		}
+				if(swapCheck(grid, parameters, gridLength) == 1)
+                {
+                    //while(swapAlgorithm(noSymbols, grid, score, gridLength) != 1) swapAlgorithm(noSymbols, grid, score, gridLength);
+                    printGrid(grid, gridLength);
+                }
+            }else printf("Values for columns and rows are not adjacent.\n");
+        }
 		else if(command[0] == 'e') return 0;
-	}
-}
+        }
+    }
