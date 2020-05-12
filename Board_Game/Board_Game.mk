@@ -62,7 +62,7 @@ AS       := C:/msys64/mingw64/bin/as.exe
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IntermediateDirectory)/boardGeneration.c$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.c$(ObjectSuffix) 
 
 
 
@@ -98,12 +98,6 @@ $(IntermediateDirectory)/main.c$(ObjectSuffix): main.c
 	$(CC) $(SourceSwitch) "C:/Users/jaege/OneDrive/Documents/GitHub/Crossword/Board_Game/main.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/main.c$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/main.c$(PreprocessSuffix): main.c
 	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/main.c$(PreprocessSuffix) main.c
-
-$(IntermediateDirectory)/boardGeneration.c$(ObjectSuffix): boardGeneration.c
-	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/boardGeneration.c$(ObjectSuffix) -MF$(IntermediateDirectory)/boardGeneration.c$(DependSuffix) -MM boardGeneration.c
-	$(CC) $(SourceSwitch) "C:/Users/jaege/OneDrive/Documents/GitHub/Crossword/Board_Game/boardGeneration.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/boardGeneration.c$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/boardGeneration.c$(PreprocessSuffix): boardGeneration.c
-	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/boardGeneration.c$(PreprocessSuffix) boardGeneration.c
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

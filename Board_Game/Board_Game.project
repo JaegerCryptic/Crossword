@@ -3,9 +3,9 @@
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
-    <File Name="boardGeneration.c"/>
-    <File Name="boardGeneration.h"/>
     <File Name="main.c"/>
+    <File Name="boardGeneration.c" ExcludeProjConfig="Debug;"/>
+    <File Name="boardGeneration.h" ExcludeProjConfig="Debug;"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
