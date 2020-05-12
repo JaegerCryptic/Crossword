@@ -329,22 +329,55 @@ void loadGame()
         fscanf(fPtr, "%hi %hi %d", &gridLength, &noSymbols, &score);
         
         char **grid = (char **)malloc((gridLength + 1) * sizeof(char *));
-        for(int i = 1; i <= gridLength; i++)
-        {
-            grid[i] = (char *)malloc((gridLength + 1) * sizeof(char *));
-        }
         
         for(int i = 1; i <= gridLength; i++)
         {
+            grid[i] = (char *)malloc((gridLength + 1) * sizeof(char *));
             for(int j = 1; j <= gridLength; j++)
             {
-                fscanf(fPtr, "%c ", &grid[i][j]);
+                fscanf(fPtr, " %c ", &grid[i][j]);
             }
         }
-        printGrid(grid, gridLength);
         fclose(fPtr); 
-    }
-    fclose(fPtr); 
+        char command[10];
+        int parameters[4] = {gridLength + 1};
+        printGrid(grid, gridLength);
+        printf("\nScore = %d\n", score);
+        commands();
+        
+        while(1)
+        {
+            if(fgets(command, 10, stdin) == 0)
+            {
+                while(getchar() != '\n');
+            }
+            else if(command[0] == 's' && command[1] != 'w')
+            {
+                // save to file
+                saving(noSymbols, grid, score, gridLength);
+            }
+            else if(command[0] == 's' && command[1] == 'w')
+            {
+                // check range and input is valid
+                if(swapHandling(command, parameters, gridLength) && rangeCheck(parameters, gridLength) && adjacentCheck(parameters))
+                {
+                    if(swapCheck(grid, parameters, gridLength) == 1)
+                    {
+                        while(swapAlgorithm(noSymbols, grid, score, gridLength) != 1) 
+                        {
+                                score += 30;
+                                swapAlgorithm(noSymbols, grid, score, gridLength);
+                        }
+                        printf("\n");
+                        printGrid(grid, gridLength);
+                        printf("\nScore = %d\n", score);
+                        commands();
+                    }
+                }else printf("Values for columns and rows are not adjacent.\n");
+            }
+            else if(command[0] == 'e') exit(0);
+        }
+    } 
 }
 
 void startGame()
