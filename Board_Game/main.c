@@ -287,7 +287,67 @@ void commands()
 		   "Swap(sw row column x row column) eg. sw 12 22\n");
 }  
 
-static void startGame()
+void saving(short noSymbols, char **grid, int score, short gridLength)
+{
+    FILE *fPtr;
+    
+   if((fPtr = fopen("save.txt", "w")) == NULL)
+    {
+        printf("Cannot save to file\n");
+    }
+    else
+    {
+        fprintf(fPtr, "%d %d %d\n", gridLength, noSymbols, score);
+        for(int i = 1; i <= gridLength; i++)
+        {
+            for(int j = 1; j <= gridLength; j++)
+            {
+                fprintf(fPtr, "%c ", grid[i][j]);
+            }
+            fprintf(fPtr, "\n");
+        }
+        printf("Saved..\n");
+        printGrid(grid, gridLength);
+        commands();
+    }
+    fclose(fPtr);
+}
+
+void loadGame()
+{
+    FILE *fPtr;
+    
+   if((fPtr = fopen("save.txt", "r")) == NULL)
+    {
+        printf("Cannot open file\n");
+    }
+    else
+    {
+        short gridLength; 
+        short noSymbols;
+        int score;
+        fscanf(fPtr, "%hi %hi %d", &gridLength, &noSymbols, &score);
+        
+        char **grid = (char **)malloc((gridLength + 1) * sizeof(char *));
+        for(int i = 1; i <= gridLength; i++)
+        {
+            grid[i] = (char *)malloc((gridLength + 1) * sizeof(char *));
+        }
+        
+        for(int i = 1; i <= gridLength; i++)
+        {
+            for(int j = 1; j <= gridLength; j++)
+            {
+                fscanf(fPtr, "%c ", &grid[i][j]);
+            }
+        }
+        printGrid(grid, gridLength);
+        fclose(fPtr); 
+    }
+    fclose(fPtr); 
+}
+
+void startGame()
 {
     // determines if new game or old
     
@@ -317,6 +377,8 @@ static void startGame()
 		}
 		else if(command[0] == 's' && command[1] != 'w')
 		{
+            // save to file
+            saving(noSymbols, grid, score, gridLength);
 
 		}
 		else if(command[0] == 's' && command[1] == 'w')
@@ -344,6 +406,7 @@ static void startGame()
     else
     {
         // Start loading of old game I/O sequence
+        loadGame();
     }
 }
 

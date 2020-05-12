@@ -1,3 +1,1 @@
-Release/main.c.o: main.c boardGeneration.h
-
-boardGeneration.h:
+Release/main.c.o: main.c
