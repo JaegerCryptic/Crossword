@@ -11,6 +11,7 @@ void error()
 
 short gameProof()
 {
+    //data validation
 	short userVal; 
     while(1)
     {
@@ -28,6 +29,7 @@ short gameProof()
 
 void colCascade(short noSymbolsPtr, char **grid, int scorePtr, int j, int i)
 {
+    //cascade column where match 3 found
 	char symbols[] = "!@#$%^&*()-+";
     while(i > 1)
     {
@@ -46,6 +48,7 @@ void colCascade(short noSymbolsPtr, char **grid, int scorePtr, int j, int i)
 
 void rowCascade(short noSymbolsPtr, char **grid, int scorePtr, int j, int i)
 {
+    //cascade row where match 3 found
     char symbols[] = "!@#$%^&*()-+";
     while(i > 1)
     {
@@ -64,6 +67,7 @@ void rowCascade(short noSymbolsPtr, char **grid, int scorePtr, int j, int i)
 
 int swapAlgorithm(short noSymbolsPtr, char **grid, int scorePtr, short gridLength)
 {
+    // determine type of match 3 and cascade
     int toggle = 0;
     for(int i = 1; i <= gridLength; i++)
 		{
@@ -107,6 +111,7 @@ int swapAlgorithm(short noSymbolsPtr, char **grid, int scorePtr, short gridLengt
 
 int swapCheck(char **grid, int *parametersPtr, short gridLength)
 {
+    //check if match 3
 	int row1 = parametersPtr[0], row2 = parametersPtr[2], col1 = parametersPtr[1], col2 = parametersPtr[3];
 	char temp = grid[row1][col1];
 	
@@ -133,7 +138,7 @@ int swapCheck(char **grid, int *parametersPtr, short gridLength)
 				}
                 
 		}
-            //revert logic
+            //revert logic when not found
             row1 = parametersPtr[0], row2 = parametersPtr[2], col1 = parametersPtr[1], col2 = parametersPtr[3];
             temp = grid[row1][col1];
 	
@@ -146,6 +151,7 @@ int swapCheck(char **grid, int *parametersPtr, short gridLength)
 
 bool rangeCheck(int *parametersPtr, short gridLength)
 {
+    // check values don't fall off grid
 	return parametersPtr[0] >= 1 && parametersPtr[0] <= gridLength && parametersPtr[1] >= 1 && parametersPtr[1] <= gridLength
 								 && parametersPtr[2] >= 1 && parametersPtr[2] <= gridLength && parametersPtr[3] >= 1
 								 && parametersPtr[3] <= gridLength;
@@ -153,12 +159,14 @@ bool rangeCheck(int *parametersPtr, short gridLength)
 
 bool adjacentCheck(int *parametersPtr)
 {
+    // check values are adjacent
 	return (parametersPtr[0] == parametersPtr[2] && abs(parametersPtr[1] - parametersPtr[3]) == 1)
 			|| (parametersPtr[1] == parametersPtr[3] && abs(parametersPtr[0] - parametersPtr[2]) == 1);
 }
 
 short gridProof()
 {
+    //data validation
 	short userVal;
     while(1)
     {
@@ -176,6 +184,7 @@ short gridProof()
 
 short symbolProof()
 {
+    //data validation
 	short userVal;
     while(1)
     {
@@ -261,6 +270,7 @@ static short symbolSize()
 
 static int swapHandling(char *commandPtr, int *parametersPtr, short gridLength)
 {
+    // check that the user entered data is valid
 	int j = 0;
 	for(int i = 0; commandPtr[i] != '\0'; i++)
 	{
@@ -272,6 +282,7 @@ static int swapHandling(char *commandPtr, int *parametersPtr, short gridLength)
 	}
 	if(parametersPtr[0] == gridLength + 1 || parametersPtr[1] == gridLength + 1 || parametersPtr[2] == gridLength + 1 || parametersPtr[3] == gridLength + 1)
 	{
+        // invalid data
 		printf("You have not entered the columns and rows to be swapped correctly.\n");
 		return 0;
 	}
@@ -281,6 +292,7 @@ static int swapHandling(char *commandPtr, int *parametersPtr, short gridLength)
 
 void commands()
 {
+    // user commands
     printf("\nCommands:\n" 
            "Save(s)\n" 
 		   "Exit(e)\n" 
@@ -289,6 +301,8 @@ void commands()
 
 void saving(short noSymbols, char **grid, int score, short gridLength)
 {
+    //save to file
+    
     FILE *fPtr;
     
    if((fPtr = fopen("save.txt", "w")) == NULL)
@@ -315,6 +329,8 @@ void saving(short noSymbols, char **grid, int score, short gridLength)
 
 void loadGame()
 {
+    // Load old game
+    
     FILE *fPtr;
     
    if((fPtr = fopen("save.txt", "r")) == NULL)
@@ -423,6 +439,7 @@ void startGame()
                 {
                     while(swapAlgorithm(noSymbols, grid, score, gridLength) != 1) 
                         {
+                            // While there are still match 3's on the grid
                             score += 30;
                             swapAlgorithm(noSymbols, grid, score, gridLength);
                         }
